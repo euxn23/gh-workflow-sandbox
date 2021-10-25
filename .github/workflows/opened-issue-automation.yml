@@ -1,0 +1,25 @@
+name: Attouch new issue to projects
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      # attouch new Dev to into dev column
+      - uses: alex-page/github-project-automation-plus@v0.3.0
+        with:
+          project: kanban
+          column: Dev
+          repo-token: ${{ secrets.REPO_AUTOMATION_TOKEN }}
+        if: contains(github.event.issue.labels.*.name, 'design') == false
+
+      # attouch new Design issue to design column
+      - uses: alex-page/github-project-automation-plus@v0.3.0
+        with:
+          project: kanban
+          column: Design
+          repo-token: ${{ secrets.REPO_AUTOMATION_TOKEN }}
+        if: contains(github.event.issue.labels.*.name, 'design')
+

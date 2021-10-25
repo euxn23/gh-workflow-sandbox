@@ -1,0 +1,16 @@
+name: Attouch closed issue to projects
+on:
+  issues:
+    types: [closed]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      # recovery for immidiately closed issue
+      - uses: alex-page/github-project-automation-plus@v0.3.0
+        with:
+          project: kanban
+          column: Closed
+          repo-token: ${{ secrets.REPO_AUTOMATION_TOKEN }}
+
